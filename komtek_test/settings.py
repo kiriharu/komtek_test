@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'terminology.apps.TerminologyConfig',
+    'django_filters',
     'rest_framework',
 ]
 

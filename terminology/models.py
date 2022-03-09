@@ -38,7 +38,7 @@ class DirectoryVersion(models.Model):
         verbose_name="Версия",
         max_length=255,
     )
-    start_date = models.DateTimeField(
+    start_date = models.DateField(
         verbose_name="Дата начала действия справочника этой версии",
     )
 
