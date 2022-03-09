@@ -1,3 +1,18 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Directory, DirectoryVersion, Item
+
+
+@admin.register(Directory)
+class DirectoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(DirectoryVersion)
+class DirectoryVersionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    pass
