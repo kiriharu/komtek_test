@@ -1,0 +1,103 @@
+- model: terminology.directory
+  pk: 3
+  fields:
+    name: Справочник 1
+    short_name: СПР1
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+      quis erat odio. Suspendisse potenti. Donec non fermentum felis. Vivamus suscipit
+      lorem ac ex fermentum, et fermentum mi fringilla.
+- model: terminology.directory
+  pk: 4
+  fields:
+    name: Справочник 2
+    short_name: СПР2
+    description: Quisque nec eros euismod, molestie purus sed, auctor metus. Ut scelerisque
+      non diam at consectetur. Proin sed erat eget mi viverra convallis.
+- model: terminology.directory
+  pk: 5
+  fields:
+    name: Справочник 3
+    short_name: СПР3
+    description: Sed vel eros sed tellus malesuada pharetra ac luctus ligula. Donec
+      felis turpis, rutrum et turpis eget, tempor fermentum libero. Suspendisse aliquam
+      iaculis porttitor. In porttitor lectus ac suscipit pellentesque.
+- model: terminology.directoryversion
+  pk: 1
+  fields:
+    directory: 3
+    version: v1
+    start_date: 2022-03-01
+- model: terminology.directoryversion
+  pk: 2
+  fields:
+    directory: 3
+    version: v2
+    start_date: 2022-03-09
+- model: terminology.directoryversion
+  pk: 3
+  fields:
+    directory: 3
+    version: v3
+    start_date: 2022-03-31
+- model: terminology.directoryversion
+  pk: 4
+  fields:
+    directory: 4
+    version: 1.0.0
+    start_date: 2022-03-31
+- model: terminology.item
+  pk: 6
+  fields:
+    parent: null
+    code: Имя
+    value: Нет имени
+    directory_version: 1
+- model: terminology.item
+  pk: 7
+  fields:
+    parent: null
+    code: Фамилия
+    value: Нет фамилии
+    directory_version: 1
+- model: terminology.item
+  pk: 8
+  fields:
+    parent: null
+    code: Паспортные данные
+    value: Здесь будут паспортные данные
+    directory_version: 1
+- model: terminology.item
+  pk: 9
+  fields:
+    parent: null
+    code: Имя
+    value: Джанго
+    directory_version: 2
+- model: terminology.item
+  pk: 12
+  fields:
+    parent: null
+    code: Фамилия
+    value: Освобожденный
+    directory_version: 2
+- model: terminology.item
+  pk: 13
+  fields:
+    parent: null
+    code: Паспортные данные
+    value: Предоставлены
+    directory_version: 2
+- model: terminology.item
+  pk: 14
+  fields:
+    parent: 13
+    code: Номер паспорта
+    value: '12345'
+    directory_version: 2
+- model: terminology.item
+  pk: 15
+  fields:
+    parent: null
+    code: Используемый фреимворк
+    value: Django
+    directory_version: 4
