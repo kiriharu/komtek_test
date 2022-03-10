@@ -2,6 +2,7 @@ import django_filters
 from django.db.models import QuerySet
 
 from .models import Directory, Item, DirectoryVersion
+from .services import get_actual_directory_items
 
 
 class DirectoryFilter(django_filters.FilterSet):
@@ -29,7 +30,15 @@ class ItemFilter(django_filters.FilterSet):
         name: str,
         value: str
     ) -> QuerySet[Item]:
-        pass
+        """
+        Фильтрация элементов по актуальности
+        """
+        if not value:
+            return queryset
+        return get_actual_directory_items(
+            self.request.parser_context["kwargs"]["pk"],
+            queryset
+        )
 
     def version_filter(
         self,
@@ -37,7 +46,9 @@ class ItemFilter(django_filters.FilterSet):
         name: str,
         value: str
     ) -> QuerySet[Item]:
-        """ Фильтрация элементов справочника по версии """
+        """
+        Фильтрация элементов справочника по версии
+        """
         # Находим версию
         version = DirectoryVersion.objects.filter(**{
             name: value,

@@ -21,12 +21,11 @@ class DirectorySerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
 
-    directory = serializers.IntegerField(source="directory_version.directory.id")
     version = serializers.StringRelatedField(source="directory_version.version")
 
     class Meta:
         model = Item
-        fields = ("id", "parent", "code", "value", "directory", "version")
+        fields = ("id", "parent", "code", "value", "version")
 
 
 class ValidateItemSerializer(serializers.Serializer):

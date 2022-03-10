@@ -16,7 +16,7 @@ from .serializers import (
     ItemSerializer, 
     ItemsValidateSerializer
 )
-from .services import get_actual_directory_items, get_items_related_to_directory, filter_unexpected_items
+from .services import get_items_related_to_directory, filter_unexpected_items
 
 
 class DirectoryAPIView(ListModelMixin, GenericViewSet):
@@ -24,13 +24,6 @@ class DirectoryAPIView(ListModelMixin, GenericViewSet):
     serializer_class = DirectorySerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = DirectoryFilter
-
-
-class ActualItemsAPIView(ListModelMixin, GenericViewSet):
-    serializer_class = ItemSerializer
-
-    def get_queryset(self):
-        return get_actual_directory_items(self.kwargs.get("pk", None))
 
 
 class ItemsAPIView(ListModelMixin, GenericViewSet):
@@ -49,7 +42,6 @@ class ItemsAPIView(ListModelMixin, GenericViewSet):
         serializer = ItemsValidateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         queryset = self.filter_queryset(self.get_queryset())
-
         # Фильтруем все неизвестные элементы
         data = filter_unexpected_items(queryset, serializer.data["values"])
 
