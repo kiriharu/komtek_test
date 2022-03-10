@@ -1,7 +1,9 @@
+import operator
 from datetime import date
+from functools import reduce
 from typing import Optional
 
-from django.db.models import QuerySet, Subquery
+from django.db.models import QuerySet, Subquery, Q
 
 from terminology.models import Item, DirectoryVersion
 
@@ -31,3 +33,15 @@ def get_items_related_to_directory(pk: Optional[int]) -> QuerySet[Item]:
     return Item.objects.filter(
         directory_version__directory_id=pk
     )
+
+
+def filter_unexpected_items(queryset: QuerySet, values: list[dict]) -> QuerySet[Item]:
+    """
+    Фильтрует неизвестные элементы, возвращает только те, которые есть в указанном каталоге
+    """
+    return queryset.filter(reduce(operator.or_, [
+        Q(code=item.get('code'),
+          value=item.get('value'),
+          parent=item.get('parent'))
+        for item in values
+    ]))

@@ -27,3 +27,17 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ("id", "parent", "code", "value", "directory", "version")
+
+
+class ValidateItemSerializer(serializers.Serializer):
+    parent = serializers.IntegerField(allow_null=True)
+    code = serializers.CharField()
+    value = serializers.CharField()
+
+
+class ItemsValidateSerializer(serializers.Serializer):
+    """ Сериализация запросов на валидацию """
+    values = serializers.ListField(
+        child=ValidateItemSerializer(),
+        allow_empty=False
+    )

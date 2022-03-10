@@ -21,6 +21,15 @@ class DirectoryFilter(django_filters.FilterSet):
 class ItemFilter(django_filters.FilterSet):
 
     version = django_filters.CharFilter(label="version", method="version_filter")
+    actual = django_filters.BooleanFilter(label="actual", method="actual_filter")
+
+    def actual_filter(
+        self,
+        queryset: QuerySet[Item],
+        name: str,
+        value: str
+    ) -> QuerySet[Item]:
+        pass
 
     def version_filter(
         self,

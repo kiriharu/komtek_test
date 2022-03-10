@@ -10,5 +10,6 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path("directories/<int:pk>/actual", ActualItemsAPIView.as_view({"get": "list"})),
-    path("directories/<int:pk>/all", ItemsAPIView.as_view({"get": "list"}))
+    path("directories/<int:pk>/all", ItemsAPIView.as_view({"get": "list"})),
+    path("directories/<int:pk>/all/validate", ItemsAPIView.as_view({"post": "validate"}))
 ]
