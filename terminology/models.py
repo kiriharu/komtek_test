@@ -53,6 +53,11 @@ class DirectoryVersion(models.Model):
             models.UniqueConstraint(
                 fields=("directory", "version"),
                 name="unique_directory_version"
+            ),
+            # уникальная дата начала действия справочника
+            models.UniqueConstraint(
+                fields=("directory", "start_date"),
+                name="unique_directory_start_date"
             )
         ]
 
@@ -84,7 +89,14 @@ class Item(models.Model):
     )
 
     def __str__(self):
-        return self.code
+        return f"{self.code} для \"{self.directory_version}\""
+
+    def save(self, *args, **kwargs):
+        # Если дочерняя версия не совпадает с версией каталога - падаем
+        if self.parent:
+            assert(self.parent.directory_version == self.directory_version)
+
+        return super(Item, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Элемент справочника"
