@@ -67,7 +67,7 @@ class Item(models.Model):
     """ Модель элемента справочника """
     parent = models.ForeignKey(
         "self",
-        verbose_name="Родительский идентификатор",
+        verbose_name="Родитель",
         on_delete=models.CASCADE,
         related_name="childs",
         null=True,
