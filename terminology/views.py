@@ -1,7 +1,3 @@
-import operator
-from functools import reduce
-
-from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
@@ -10,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from .filters import DirectoryFilter, ItemFilter
-from .models import Directory, Item
+from .models import Directory
 from .serializers import (
     DirectorySerializer, 
     ItemSerializer, 

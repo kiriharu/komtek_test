@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class Directory(models.Model):
@@ -91,14 +92,14 @@ class Item(models.Model):
     def __str__(self):
         return f"{self.code} для \"{self.directory_version}\""
 
-    def save(self, *args, **kwargs):
-        # Если дочерняя версия не совпадает с версией каталога - падаем
+    def clean(self):
         if self.parent:
-            assert(self.parent.directory_version == self.directory_version)
-
-        return super(Item, self).save(*args, **kwargs)
+            if self.parent.directory_version != self.directory_version:
+                raise ValidationError(
+                    dict(directory_version="Корневая версия должна совпадать с текущей.")
+                )
+        super().clean()
 
     class Meta:
         verbose_name = "Элемент справочника"
         verbose_name_plural = "Элементы справочника"
-
