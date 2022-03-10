@@ -22,3 +22,12 @@ def get_actual_directory_items(pk: Optional[int]) -> QuerySet[Item]:
     return Item.objects.filter(
         directory_version_id=Subquery(queryset=directory.values("pk")[:1])
     )
+
+
+def get_items_related_to_directory(pk: Optional[int]) -> QuerySet[Item]:
+    """
+    Получает элементы заданного справочника
+    """
+    return Item.objects.filter(
+        directory_version__directory_id=pk
+    )
