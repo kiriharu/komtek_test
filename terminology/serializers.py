@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Directory, DirectoryVersion
+from .models import Directory, DirectoryVersion, Item
 
 
 class DirectoryVersionSerializer(serializers.ModelSerializer):
@@ -17,3 +17,13 @@ class DirectorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Directory
         fields = ("id", "name", "short_name", "description", "versions", )
+
+
+class ItemSerializer(serializers.ModelSerializer):
+
+    directory = serializers.IntegerField(source="directory_version.directory.id")
+    version = serializers.StringRelatedField(source="directory_version.version")
+
+    class Meta:
+        model = Item
+        fields = ("id", "parent", "code", "value", "directory", "version")
